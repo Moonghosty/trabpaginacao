@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Atividade de Paginação</title>
+</head>
+<body>   
+    <h1><span>Página {{ pagina }}</span></h1>
+    <div>
+        <ul>
+            {% for item in itens %} 
+                <!-- Exibe o ID e o nome de cada item, com um botão para "Ver detalhes" -->
+                <li>Id do item: {{ item.id }}<br> Nome: {{ item.nome }} 
+                    <button class="action-btn">Ver detalhes</button>
+                </li>
+                <!-- Div oculta que será exibida ao clicar no botão "Ver detalhes" -->
+                <div class="container">
+                    <p><strong>Nome:</strong> {{ item.nome }}</p>
+                    <p><strong>Descrição: </strong> {{ item.descricao }}</p>
+                    <!-- Botão para fechar o container -->
+                    <button class="fechar">Fechar</button>
+                </div>
+                <br>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Link para a página anterior -->
+    {% if pagina > 1 %}
+        <a href="?pagina={{ pagina - 1 }}">Página Anterior</a>
+    {% endif %}
+
+    <!-- Link para a próxima página, exibido somente se a página atual for menor que o total de páginas -->
+    {% if pagina < total_paginas %}
+        <a href="?pagina={{ pagina + 1 }}">Próxima Página</a>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
